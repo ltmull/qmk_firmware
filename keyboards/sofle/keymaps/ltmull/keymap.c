@@ -7,6 +7,7 @@
 #include QMK_KEYBOARD_H
 
 #define INDICATOR_BRIGHTNESS 30
+#define NUM_LEDS_PER_SIDE 36
 
 #define HSV_OVERRIDE_HELP(h, s, v, Override) h, s , Override
 #define HSV_OVERRIDE(hsv, Override) HSV_OVERRIDE_HELP(hsv,Override)
@@ -14,40 +15,40 @@
 // Light combinations
 #define SET_INDICATORS(hsv) \
 	{0, 1, HSV_OVERRIDE_HELP(hsv, INDICATOR_BRIGHTNESS)}, \
-    {35+0, 1, hsv}
+    {NUM_LEDS_PER_SIDE+0, 1, hsv}
 #define SET_UNDERGLOW(hsv) \
 	{1, 6, hsv}, \
-    {35+1, 6,hsv}
+    {NUM_LEDS_PER_SIDE+1, 6,hsv}
 #define SET_NUMPAD(hsv)     \
-	{35+15, 5, hsv},\
-	  {35+22, 3, hsv},\
-	  {35+27, 3, hsv}
+	{NUM_LEDS_PER_SIDE+15, 5, hsv},\
+	  {NUM_LEDS_PER_SIDE+22, 3, hsv},\
+	  {NUM_LEDS_PER_SIDE+27, 3, hsv}
 #define SET_NUMROW(hsv) \
 	{10, 2, hsv}, \
 		{20, 2, hsv}, \
 		{30, 2, hsv}, \
-	  {35+ 10, 2, hsv}, \
-	  {35+ 20, 2, hsv}, \
-	  {35+ 30, 2, hsv}
+	  {NUM_LEDS_PER_SIDE+ 10, 2, hsv}, \
+	  {NUM_LEDS_PER_SIDE+ 20, 2, hsv}, \
+	  {NUM_LEDS_PER_SIDE+ 30, 2, hsv}
 #define SET_INNER_COL(hsv)	\
 	{33, 4, hsv}, \
-	  {35+ 33, 4, hsv}
+	  {NUM_LEDS_PER_SIDE+ 33, 4, hsv}
 
 #define SET_OUTER_COL(hsv) \
 	{7, 4, hsv}, \
-	  {35+ 7, 4, hsv}
+	  {NUM_LEDS_PER_SIDE+ 7, 4, hsv}
 #define SET_THUMB_CLUSTER(hsv) 	\
 	{25, 2, hsv}, \
-	  {35+ 25, 2, hsv}
+	  {NUM_LEDS_PER_SIDE+ 25, 2, hsv}
 #define SET_LAYER_ID(hsv) 	\
 	{0, 1, HSV_OVERRIDE_HELP(hsv, INDICATOR_BRIGHTNESS)}, \
-    {35+0, 1, HSV_OVERRIDE_HELP(hsv, INDICATOR_BRIGHTNESS)}, \
+    {NUM_LEDS_PER_SIDE+0, 1, HSV_OVERRIDE_HELP(hsv, INDICATOR_BRIGHTNESS)}, \
 		{1, 6, hsv}, \
-    {35+1, 6, hsv}, \
+    {NUM_LEDS_PER_SIDE+1, 6, hsv}, \
 		{7, 4, hsv}, \
-	  {35+ 7, 4, hsv}, \
+	  {NUM_LEDS_PER_SIDE+ 7, 4, hsv}, \
 		{25, 2, hsv}, \
-	  {35+ 25, 2, hsv}
+	  {NUM_LEDS_PER_SIDE+ 25, 2, hsv}
 
 
 enum sofle_layers {
@@ -301,7 +302,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 #ifdef RGBLIGHT_ENABLE
-char layer_state_str[70];
+char layer_state_str[2 * NUM_LEDS_PER_SIDE];
 // Now define the array of layers. Later layers take precedence
 
 // QWERTY,
@@ -339,8 +340,8 @@ const rgblight_segment_t PROGMEM layer_numpad_lights[] = RGBLIGHT_LAYER_SEGMENTS
 	SET_NUMPAD(HSV_BLUE),
     {7, 4, HSV_ORANGE},
     {25, 2, HSV_ORANGE},
-    {35+6, 4, HSV_ORANGE},
-    {35+25, 2, HSV_ORANGE}
+    {NUM_LEDS_PER_SIDE+6, 4, HSV_ORANGE},
+    {NUM_LEDS_PER_SIDE+25, 2, HSV_ORANGE}
     );
 // _SWITCHER   // light up top row
 const rgblight_segment_t PROGMEM layer_switcher_lights[] = RGBLIGHT_LAYER_SEGMENTS(
@@ -395,7 +396,7 @@ static void render_logo(void) {
 static void print_status_narrow(void) {
     // Print current mode
     oled_write_P(PSTR("\n\n"), false);
-    oled_write_ln_P(PSTR("Dane\nEvans"), false);
+    oled_write_ln_P(PSTR("SOFLE\n"), false);
 
     oled_write_ln_P(PSTR(""), false);
 
