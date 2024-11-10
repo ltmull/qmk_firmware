@@ -7,4 +7,4 @@ ENCODER_ENABLE = yes
 LTO_ENABLE = yes
 OLED_ENABLE = yes
 
-CONVERT_TO=elite_pi
+CONVERT_TO=promicro_rp2040
