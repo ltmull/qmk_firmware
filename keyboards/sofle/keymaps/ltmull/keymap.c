@@ -435,14 +435,14 @@ bool oled_task_user(void) {
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
-        case KC_QWERTY:
-            if (record->event.pressed) {
-                set_single_persistent_default_layer(_QWERTY);
-            }
-            return false;
         case KC_COLEMAKDH:
             if (record->event.pressed) {
                 set_single_persistent_default_layer(_COLEMAKDH);
+            }
+            return false;
+        case KC_QWERTY:
+            if (record->event.pressed) {
+                set_single_persistent_default_layer(_QWERTY);
             }
             return false;
         case KC_LOWER:
@@ -491,31 +491,31 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
         } else {
             tap_code(KC_VOLD);
         }
-		} else if (index == 1) {
-			switch (get_highest_layer(layer_state)) {
-				case _COLEMAKDH:
-				case _QWERTY:
-					if (clockwise) {
-						tap_code(KC_PGDN);
-					} else {
-						tap_code(KC_PGUP);
-					}
-				break;
-			case _RAISE:
-			case _LOWER:
-					if (clockwise) {
-						tap_code(KC_DOWN);
-					} else {
-						tap_code(KC_UP);
-					}
-				break;
-			default:
-					if (clockwise) {
-						tap_code(KC_WH_D);
-					} else {
-						tap_code(KC_WH_U);
-					}
-				break;
+    } else if (index == 1) {
+        switch (get_highest_layer(layer_state)) {
+            case _COLEMAKDH:
+            case _QWERTY:
+                if (clockwise) {
+                    tap_code(KC_PGDN);
+                } else {
+                    tap_code(KC_PGUP);
+                }
+            break;
+        case _RAISE:
+        case _LOWER:
+                if (clockwise) {
+                    tap_code(KC_DOWN);
+                } else {
+                    tap_code(KC_UP);
+                }
+            break;
+        default:
+                if (clockwise) {
+                    tap_code(KC_WH_D);
+                } else {
+                    tap_code(KC_WH_U);
+                }
+            break;
 		}
     }
     return true;
